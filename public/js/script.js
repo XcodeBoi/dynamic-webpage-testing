@@ -1,1 +1,1 @@
-console.log("js loaded")
+console.log("This is coming from script.js");

@@ -10,7 +10,7 @@
     "type": "git",
     "url": "git+https://github.com/XcodeBoi/dynamic-webpage-testing.git"
   },
-  "author": "",
+  "author": "textedituser",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/XcodeBoi/dynamic-webpage-testing/issues"
@@ -19,7 +19,9 @@
   "dependencies": {
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "mysql": "^2.18.1",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.7"
   }
 }
