@@ -1,0 +1,25 @@
+{
+  "name": "dynamic-webpage-testing",
+  "version": "1.0.0",
+  "description": "This is part of my highschool web development class",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon -e js,ejs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/XcodeBoi/dynamic-webpage-testing.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/XcodeBoi/dynamic-webpage-testing/issues"
+  },
+  "homepage": "https://github.com/XcodeBoi/dynamic-webpage-testing#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.1",
+    "mysql": "^2.18.1",
+    "nodemon": "^2.0.7"
+  }
+}
