@@ -4,7 +4,8 @@
   "description": "This is part of my highschool web development class",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon -e js,ejs",
+    "start_local": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,8 @@
   },
   "homepage": "https://github.com/XcodeBoi/dynamic-webpage-testing#readme",
   "dependencies": {
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mysql": "^2.18.1"

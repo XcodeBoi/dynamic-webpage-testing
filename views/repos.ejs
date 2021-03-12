@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>titl</title>
+</head>
+<body>
+	<ul class="repos">
+	  <% repos.forEach(function(repo) { %>
+	  <li class="repo">
+	    <h2><a href="<%=repo.url%>" class="repo-title"><%=repo.name%></a></h2>
+	    <p class="repo-description"><%=repo.description%></p>
+	  </li>
+	  <% })%>
+	</ul>
+	<%- include('footer.ejs') %>
+</body>
+</html>

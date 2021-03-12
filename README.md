@@ -11,3 +11,9 @@ todo:
 - neko api
 - friend data
 - discord bot
+
+Env details:
+This runs on heroku. It is configured to auto deploy on updates to the repo.
+https://skolwebapp.herokuapp.com/
+
+The page will take a little while to load initally cause the server seems to just like dying sometimes.
