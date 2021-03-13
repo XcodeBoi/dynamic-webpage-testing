@@ -24,6 +24,8 @@ app.post("/login", (req, res) => {
   }
 });
 
+// node specific
+
 app.get("/repos", async (req, res) => {
   const username = req.query.username || "myogeshchavan97";
   console.log(req)
@@ -47,6 +49,6 @@ app.get("/repos", async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
+app.listen(process.env.port || 3000, () => {
   console.log("server started on port 3000");
 });
