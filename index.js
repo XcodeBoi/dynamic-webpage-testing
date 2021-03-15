@@ -39,10 +39,10 @@ app.get("/apiTest", (req, res, next) => {
   const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
   const chkData = promisify(redisC.exists("exectues")).bind(redisC);
   chkData.then(result => dataCache = result); // is this a call back i hope this is a call back i dont even know can somebody teach me please
-  if dataCache == 0 {
+  if(dataCache == 0) {
     initData.then(result => console.log(result))
   }
-  
+
   const getData = promisify(redisC.get("exectues")).bind(redisC);
   getData.then(result => dataCache = result);
 
