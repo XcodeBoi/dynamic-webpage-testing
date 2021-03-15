@@ -4,7 +4,7 @@
   "description": "This is part of my highschool web development class",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon -e js,ejs",
+    "start": "nodemon -e js,ejs,json",
     "start_local": "node index.js"
   },
   "repository": {
