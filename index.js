@@ -34,13 +34,17 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/apiTest", (req, res, next) => {
+  var dataCache = 0
   // i fear things that arent promises?
   const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
   const chkData = promisify(redisC.exists("exectues")).bind(redisC);
-  chkData.then(result => if(result == 0){initData}); // is this a call back i hope this is a call back i dont even know can somebody teach me please
-
-  const getData = promisify(redisC.get()).bind(redisC);
-  getData.then(result => const dataCache = result);
+  chkData.then(result => dataCache = result); // is this a call back i hope this is a call back i dont even know can somebody teach me please
+  if dataCache == 0 {
+    initData.then(result => console.log(result))
+  }
+  
+  const getData = promisify(redisC.get("exectues")).bind(redisC);
+  getData.then(result => dataCache = result);
 
   const uptData = promisify(redisC.set("exectues", dataCache + 1).bind(redisC));
   uptData.then(result => console.log(`updated ${dataCache}`))
