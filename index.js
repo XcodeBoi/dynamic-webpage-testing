@@ -34,6 +34,9 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/apiTest", (req, res, next) => {
+
+  // this is a mess and a half ill fix it tomororw.
+
   var dataCache = 0
   // i fear things that arent promises?
   const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
