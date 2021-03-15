@@ -13,6 +13,9 @@ todo:
 
 Env details:
 This runs on heroku. It is configured to auto deploy on updates to the repo.
+
 https://skolwebapp.herokuapp.com/
 
-The page will take a little while to load initally cause the server seems to just like dying sometimes.
+The page will take a little while to load initally cause the server seems to just like sleeping sometimes.
+
+The program has now been adapted to run on a db hosted by heroku, and as such it cannot be run on a local enviroment.

@@ -5,6 +5,13 @@ const axios = require("axios");
 const app = express();
 var jsonFile = require("./jsontesting.json");
 const fs = require("fs")
+const redis = require("redis");
+const redisC = redis.createClient(process.env.REDIS_URL);
+const { promisify } = require("util");
+
+redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
+  console.error(error);
+});
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.set("view engine", "ejs");
@@ -27,14 +34,18 @@ app.post("/login", (req, res) => {
 });
 
 app.get("/apiTest", (req, res, next) => {
-	jsonFile.idk = jsonFile.idk + 1;
-	res.json(jsonFile.idk);
-	console.log(jsonFile.idk);
-	fs.writeFile("./jsontesting.json", JSON.stringify(jsonFile), function writeJSON(err) {
-	  if (err) return console.log(err);
-	  console.log(JSON.stringify(jsonFile));
-	  console.log('writing to ' + jsonFile);
-	});
+  // i fear things that arent promises?
+  const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
+  const chkData = promisify(redisC.exists("exectues")).bind(redisC);
+  chkData.then(result => if(result == 0){initData}); // is this a call back i hope this is a call back i dont even know can somebody teach me please
+
+  const getData = promisify(redisC.get()).bind(redisC);
+  getData.then(result => const dataCache = result);
+
+  const uptData = promisify(redisC.set("exectues", dataCache + 1).bind(redisC));
+  uptData.then(result => console.log(`updated ${dataCache}`))
+
+  getData.then(result => res.json(result))
 });
 
 app.get("/repos", async (req, res) => {
