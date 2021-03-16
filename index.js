@@ -58,7 +58,8 @@ app.get("/apiTest", (req, res, next) => {
 });
 
 app.get("/testpoint", (req, res, next) => {
-	redisC.set("exectues", 0)
+	await redisC.set("exectues", 0)
+	console.log(await redisC.get("exectues"))
 });
 
 app.get("/repos", async (req, res) => {
