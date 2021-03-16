@@ -34,7 +34,7 @@ app.get("/apiTest", (req, res) => {
   redisC.exists("exectues", (err, reply) => {
     if (err) throw err;
     console.log(reply)
-    if(reply == false) {
+    if(reply == 0) {
       redisC.set("exectues", "0")
     }
   })
@@ -59,7 +59,7 @@ app.get("/apiTest", (req, res) => {
 
 // forgot i was working with persisant data and uh it sucked.
 app.get("/reset", (req, res) => {
-  redisC.del("key")
+  redisC.del("exectues")
   res.json("yeah its done. good shit go home now.")
 })
 
