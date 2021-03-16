@@ -35,7 +35,7 @@ app.get("/apiTest", (req, res) => {
   // not manipulating this varible beyond using it as a reference value.
   // const exists for the sake of memory efficency right? 
   const dataCache = redisC.get("exectues")
-  redisC.set("exectues", console.log((dataCache + 1).toString())); // update the key with the new amount of views. 
+  redisC.set("exectues", (dataCache + 1).toString()); // update the key with the new amount of views. 
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   res.json(redisC.get("exectues"));
 });
