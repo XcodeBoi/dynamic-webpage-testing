@@ -1,71 +1,44 @@
-/* I did not write this, this was to support the login page */
-
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-}
-
 html {
-  font-size: 62.5%;
+  background-color: rgb(29, 31, 33);
+  font-family: "Menlo", "Meslo LG", monospace;
+  color: #ccc;
 }
-
 body {
-  font-family: "Lato", "Helvetica", Helvetica, sans-serif;
-  background: #aa9a96;
-  color: #f7df1e;
-  font-size: 1.8rem;
-  padding: 1.2rem;
-  letter-spacing: 1px;
+  margin: 5px 30% 5px 30%;
 }
-
-.login-form {
-  width: 60%;
-  margin: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 60vh;
-  font-size: 2.2rem;
+p {
+  margin: 0px 0px 0px 0px;
 }
+.header {
 
-.login-form form {
-  width: 40%;
+  font-size: 1.5em;
+  color: rgb(0, 195, 137);
+  margin: 2.1em 15px 1em 15px;
 }
-
-.form-control {
-  margin-bottom: 1rem;
-  width: 100%;
+.content {
+  font-size: 0.9em;
+  text-align: justify;
 }
-
-.form-control label {
-  display: block;
-  margin-bottom: 1rem;
+.content p {
+  margin: 20px 30px 20px 30px;
 }
-
-.form-control input {
-  padding: 0.375rem 0.75rem;
-  width: 100%;
-  font-size: 1.3rem;
-  line-height: 2;
+.content table {
+  margin: 20px 30px 20px 30px;
 }
-
-.btn {
-  display: inline-block;
-  font-size: 1.5rem;
-  font-weight: 400;
-  text-align: center;
-  vertical-align: middle;
-  border: 1px solid transparent;
-  padding: 0.375rem 0.75rem;
-  line-height: 1.5;
-  border-radius: 0.25rem;
-  color: #fff;
-  background-color: #007bff;
-  cursor: pointer;
+.footer {
+  margin: 1em 5% 50px 5%;
+  color: rgb(94, 94, 94);
+  font-size: 11px;
 }
-
-.link {
-  display: inline-block;
-  margin-bottom: 1rem;
+a:visited {
+  color: rgb(0, 210, 137);
+  transition: 0.3s;
+}
+a {
+  color: rgb(0, 210, 137);
+  transition: 0.3s;
+}
+a:hover {
+  color: rgb(0, 99, 65);
+  transition: 0.3s;
 }
