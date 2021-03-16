@@ -31,30 +31,30 @@ app.get("/", (req, res) => {
 app.get("/apiTest", (req, res) => {
   // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
   // but more persistant than storing it as a varible and loosing data over restarts.
-  redisC.exists("exectues", (err, reply) => {
+  redisC.exists("exectuess", (err, reply) => {
     if (err) throw err;
     console.log(reply)
     if(reply == 0) {
-      redisC.set("exectues", "0")
+      redisC.set("exectuess", "0")
     }
   })
   // not manipulating this varible beyond using it as a reference value.
   // const exists for the sake of memory efficency right? 
-  redisC.get("exectues", (err, reply) => {
+  redisC.get("exectuess", (err, reply) => {
     if (err) throw err;
     console.log("get reply: " + reply);
     var dataCache = reply
   })
   console.log(dataCache);
   console.log((parseInt(dataCache) + 1).toString());
-  redisC.set("exectues", (parseInt(dataCache) + 1).toString(), (err, reply) => {
+  redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
     if (err) throw err;
     console.log(reply);
   })
 
   // update the key with the new amount of views. 
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
-  res.json(redisC.get("exectues"));
+  res.json(redisC.get("exectuess"));
 });
 
 // forgot i was working with persisant data and uh it sucked.
