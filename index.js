@@ -34,6 +34,7 @@ app.get("/apiTest", (req, res) => {
   if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
     redisC.set("exectues", "0", (err, reply) => {
     if (err) throw err;
+    console.log(err);
     console.log(reply);
   });
   };
@@ -57,10 +58,12 @@ app.get("/apiTest", (req, res) => {
   res.json(redisC.get("exectues"));
 });
 
+// forgot i was working with persisant data and uh it sucked.
 app.get("/reset", (req, res) => {
   redisC.del("exectues")
   res.json("yeah its done. good shit go home now.")
 })
+
 app.get("/repos", async (req, res) => {
   const username = req.query.username || "myogeshchavan97";
   console.log(req)
