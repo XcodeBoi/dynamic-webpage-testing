@@ -38,8 +38,6 @@ app.get("/apiTest", (req, res) => {
       redisC.set("exectuess", "0")
     }
   })
-  // not manipulating this varible beyond using it as a reference value.
-  // const exists for the sake of memory efficency right? 
   redisC.get("exectuess", (err, reply) => {
     if (err) throw err;
     console.log("get reply: " + reply);
@@ -58,11 +56,7 @@ app.get("/apiTest", (req, res) => {
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
 
-// forgot i was working with persisant data and uh it sucked.
-app.get("/reset", (req, res) => {
-  redisC.del("exectues")
-  res.json("yeah its done. good shit go home now.")
-})
+// I didnt write the /repos page.
 
 app.get("/repos", async (req, res) => {
   const username = req.query.username || "myogeshchavan97";
