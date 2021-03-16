@@ -29,6 +29,8 @@ app.get("/", (req, res) => {
 });
 
 app.get("/apiTest", (req, res) => {
+  // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
+  // but more persistant than storing it as a varible and loosing data over restarts.
   if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
     redisC.set("exectues", "0", (err, reply) => {
     if (err) throw err;
@@ -56,7 +58,7 @@ app.get("/apiTest", (req, res) => {
 });
 
 app.get("/reset", (req, res) => {
-  redisC.set("exectues", "0")
+  redisC.del("exectues")
   res.json("yeah its done. good shit go home now.")
 })
 app.get("/repos", async (req, res) => {
