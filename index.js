@@ -1,64 +1,42 @@
+
+// adding in the libraries, which were installed through npm
+
 const express = require("express");
-const bodyParser = require("body-parser");
+const app = express();
 const path = require("path");
 const axios = require("axios");
-const app = express();
-var jsonFile = require("./jsontesting.json");
-const fs = require("fs")
 const redis = require("redis");
-const redisC = redis.createClient(process.env.REDIS_URL);
-const { promisify } = require("util");
+const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
 
 redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
   console.error(error);
 });
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs"); // support for ejs
+app.use(express.static(path.join(__dirname, "public"))); // This means when I reference files it will prefix public to the path.
 
-app.get("/", (req, res) => {
+// app refers to the express framework.
+// "/" is the accessed page.
+// req is the data that was recieved from the client.
+// res it what was sent back.
+// .get is the type of request. like vs put and post and whatnot.
+// the arrow is just using arrow functions, which at an ultra abstract level are the same.
+// i dont know enough about it but it appears to be used in cases where something is triggered and modified.
+// res modifies the response, .render tells it which file to render. This ties into the ejs view engine.
+
+app.get("/", (req, res) => { 
   res.render("index");
 });
 
-app.post("/login", (req, res) => {
-  const { name, password } = req.body;
-
-  if (name === "admin" && password === "admin") {
-    res.render("success", {
-      username: name,
-    });
-  } else {
-    res.render("failure");
-  }
-});
-
-app.get("/apiTest", (req, res, next) => {
-
-  // this is a mess and a half ill fix it tomororw.
-
-  var dataCache = 0
-  // 
-  // ok this was an attempt but its practically suedo code now.
-  const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
-  const chkData = promisify(redisC.exists("exectues")).bind(redisC);
-  chkData.then(result => dataCache = result); // is this a call back i hope this is a call back i dont even know can somebody teach me please
-  if(dataCache == 0) {
-    initData.then(result => console.log(result))
-  }
-
-  const getData = promisify(redisC.get("exectues")).bind(redisC);
-  getData.then(result => dataCache = result);
-
-  const uptData = promisify(redisC.set("exectues", dataCache + 1).bind(redisC));
-  uptData.then(result => console.log(`updated ${dataCache}`))
-
-  getData.then(result => res.json(result))
-});
-
-app.get("/testpoint", (req, res, next) => {
-	redisC.set("exectues", 0)
-	console.log(redisC.get("exectues"))
+app.get("/apiTest", (req, res) => {
+  if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
+    redisC.set("exectues", 0);
+  };
+  // not manipulating this varible beyond using it as a reference value.
+  // const exists for the sake of memory efficency right? 
+  const dataCache = redisC.get("exectues");
+  redisC.set("exectues", dataCache + 1); // update the key with the new amount of views
+  res.json(redisC.get("exectues"));
 });
 
 app.get("/repos", async (req, res) => {
@@ -83,6 +61,15 @@ app.get("/repos", async (req, res) => {
     res.status(400).send("Error while getting list of repositories");
   }
 });
+
+// app refers to the instance of expressjs, listen tells it what port to start running on.
+// due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
+// the || 3000 is for when i was able to test this in a local envrioment...
+// but I am now unable due to intergration with redis.
+// || just refers to do this if that doesnt work. an or operator.
+// console.log logs to console im pretty sure thats self explantory but...
+// im breaking it down just in case you dont know and so i can properly understand..
+// the code myself.
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started on port 3000");

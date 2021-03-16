@@ -3,7 +3,7 @@ This is part of my highschool web development class
 
 I wouldn't recommend using this code for anything other than stalking my terribly uninformed programming
 
-I followed these guides:
+I used some guides. heres one i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
 
 todo:
