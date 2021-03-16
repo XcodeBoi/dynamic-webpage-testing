@@ -35,7 +35,7 @@ app.get("/apiTest", (req, res) => {
     if (err) throw err;
     console.log(reply)
     if(reply == false) {
-      await redisC.set("exectues", "0")
+      redisC.set("exectues", "0")
     }
   })
   // not manipulating this varible beyond using it as a reference value.
