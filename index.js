@@ -55,6 +55,10 @@ app.get("/apiTest", (req, res) => {
   res.json(redisC.get("exectues"));
 });
 
+app.get("/reset", (req, res) => {
+  redisC.set("exectues", "0")
+  res.json("yeah its done. good shit go home now.")
+})
 app.get("/repos", async (req, res) => {
   const username = req.query.username || "myogeshchavan97";
   console.log(req)
