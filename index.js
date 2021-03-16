@@ -29,36 +29,32 @@ app.get("/", (req, res) => {
 });
 
 app.get("/apiTest", async (req, res) => {
-  await redisC.set("key", "variblelue", redis.print);
-  console.log("console:" + redisC.get("key", redis.print))
-  res.json(redisC.get("key", redis.print));
-  // // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
-  // // but more persistant than storing it as a varible and loosing data over restarts.
-  // if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
-  //   redisC.set("exectues", "0", (err, reply) => {
-  //   if (err) throw err;
-  //   console.log("yeah " + err);
-  //   console.log("rely " + reply);
-  // });
-  // }
-  // // not manipulating this varible beyond using it as a reference value.
-  // // const exists for the sake of memory efficency right? 
-  // const dataCache = redisC.get("exectues", (err, reply) => {
-  //   if (err) throw err;
-  //   console.log(reply);
+  // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
+  // but more persistant than storing it as a varible and loosing data over restarts.
+  redisC.exists("exectues", (err, reply) => {
+    if (err) throw err;
+    console.log(reply)
+    if(reply == false) {
+      redisC.set("exectues", "0")
+    }
+  })
+  // not manipulating this varible beyond using it as a reference value.
+  // const exists for the sake of memory efficency right? 
+  redisC.get("exectues", (err, reply) => {
+    if (err) throw err;
+    console.log("get reply: " + reply);
+    dataCache = reply
+  })
+  console.log(dataCache);
+  console.log((parseInt(dataCache) + 1).toString());
+  redisC.set("exectues", (parseInt(dataCache) + 1).toString(), (err, reply) => {
+    if (err) throw err;
+    console.log(reply);
+  })
 
-  // })
-  // console.log(dataCache);
-  // console.log((parseInt(dataCache) + 1).toString());
-  // redisC.set("exectues", (parseInt(dataCache) + 1).toString(), (err, reply) => {
-  //   if (err) throw err;
-  //   console.log(reply);
-    
-  // })
-
-  // // update the key with the new amount of views. 
-  // // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
-  // res.json(redisC.get("exectues"));
+  // update the key with the new amount of views. 
+  // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
+  res.json(redisC.get("exectues"));
 });
 
 // forgot i was working with persisant data and uh it sucked.
