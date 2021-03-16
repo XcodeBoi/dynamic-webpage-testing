@@ -44,9 +44,9 @@ app.get("/apiTest", (req, res) => {
     if (err) throw err;
     console.log("get reply: " + reply);
     var dataCache = reply
+    console.log(dataCache);
+    console.log((parseInt(dataCache) + 1).toString());
   })
-  console.log(dataCache);
-  console.log((parseInt(dataCache) + 1).toString());
   redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
     if (err) throw err;
     console.log(reply);
