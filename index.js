@@ -38,8 +38,7 @@ app.get("/apiTest", (req, res, next) => {
   // this is a mess and a half ill fix it tomororw.
 
   var dataCache = 0
-
-
+  // 
   // ok this was an attempt but its practically suedo code now.
   const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
   const chkData = promisify(redisC.exists("exectues")).bind(redisC);
@@ -58,8 +57,8 @@ app.get("/apiTest", (req, res, next) => {
 });
 
 app.get("/testpoint", (req, res, next) => {
-	await redisC.set("exectues", 0)
-	console.log(await redisC.get("exectues"))
+	redisC.set("exectues", 0)
+	console.log(redisC.get("exectues"))
 });
 
 app.get("/repos", async (req, res) => {
