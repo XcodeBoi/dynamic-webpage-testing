@@ -30,14 +30,13 @@ app.get("/", (req, res) => {
 
 app.get("/apiTest", (req, res) => {
   if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
-    redisC.set("exectues", 0);
+    redisC.set("exectues", "0");
   };
   // not manipulating this varible beyond using it as a reference value.
   // const exists for the sake of memory efficency right? 
-  const dataCache = redisC.get("exectues");
-  console.log(dataCache)
-  console.log(dataCache + 1)
-  redisC.set("exectues", dataCache + 1); // update the key with the new amount of views
+  const dataCache = redisC.get("exectues")
+  redisC.set("exectues", console.log((dataCache + 1).toString())); // update the key with the new amount of views. 
+  // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   res.json(redisC.get("exectues"));
 });
 
