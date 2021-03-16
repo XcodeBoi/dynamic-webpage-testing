@@ -3,6 +3,10 @@ This is part of my highschool web development class
 
 I wouldn't recommend using this code for anything other than stalking my terribly uninformed programming
 
+FAQ:
+Why are there so many commits? 
+- because i tested in production without never touching redis or a proper node app.
+
 I used some guides. heres one i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
 

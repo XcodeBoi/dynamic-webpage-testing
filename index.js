@@ -29,9 +29,9 @@ app.get("/", (req, res) => {
 });
 
 app.get("/apiTest", (req, res) => {
-  client.set("key", "value", redis.print);
-  console.log(client.get("key", redis.print))
-  res.json(client.get("key", redis.print));
+  redisC.set("key", "value", redis.print);
+  console.log(redisC.get("key", redis.print))
+  res.json(redisC.get("key", redis.print));
   // // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
   // // but more persistant than storing it as a varible and loosing data over restarts.
   // if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
