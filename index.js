@@ -48,12 +48,14 @@ app.get("/apiTest", (req, res) => {
     console.log((parseInt(dataCache) + 1).toString());
     redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
       if (err) throw err;
-      console.log(reply);
     })
   })
   // update the key with the new amount of views. 
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
-  res.json(redisC.get("exectuess"));
+  redisC.get("exectuess", (err, reply) => {
+    res.json(reply);
+  });
+  // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
 
 // forgot i was working with persisant data and uh it sucked.
