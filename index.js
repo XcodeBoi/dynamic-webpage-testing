@@ -34,8 +34,8 @@ app.get("/apiTest", (req, res) => {
   if(redisC.exists("exectues") == false) { // if the key doesnt exist, create it.
     redisC.set("exectues", "0", (err, reply) => {
     if (err) throw err;
-    console.log(err);
-    console.log(reply);
+    console.log("yeah " + err);
+    console.log("rely " + reply);
   });
   };
   // not manipulating this varible beyond using it as a reference value.
