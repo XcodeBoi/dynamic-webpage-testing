@@ -46,12 +46,11 @@ app.get("/apiTest", (req, res) => {
     var dataCache = reply
     console.log(dataCache);
     console.log((parseInt(dataCache) + 1).toString());
+    redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
+      if (err) throw err;
+      console.log(reply);
+    })
   })
-  redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
-    if (err) throw err;
-    console.log(reply);
-  })
-
   // update the key with the new amount of views. 
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   res.json(redisC.get("exectuess"));
