@@ -38,7 +38,9 @@ app.get("/apiTest", (req, res, next) => {
   // this is a mess and a half ill fix it tomororw.
 
   var dataCache = 0
-  // i fear things that arent promises?
+
+
+  // ok this was an attempt but its practically suedo code now.
   const initData = promisify(redisC.set("exectues", 0)).bind(redisC);
   const chkData = promisify(redisC.exists("exectues")).bind(redisC);
   chkData.then(result => dataCache = result); // is this a call back i hope this is a call back i dont even know can somebody teach me please
@@ -53,6 +55,10 @@ app.get("/apiTest", (req, res, next) => {
   uptData.then(result => console.log(`updated ${dataCache}`))
 
   getData.then(result => res.json(result))
+});
+
+app.get("/testpoint", (req, res, next) => {
+	redisC.set("exectues", 0)
 });
 
 app.get("/repos", async (req, res) => {
