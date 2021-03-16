@@ -28,9 +28,9 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/apiTest", (req, res) => {
-  redisC.set("key", "value", redis.print);
-  console.log(redisC.get("key", redis.print))
+app.get("/apiTest", async (req, res) => {
+  await redisC.set("key", "variblelue", redis.print);
+  console.log("console:" + redisC.get("key", redis.print))
   res.json(redisC.get("key", redis.print));
   // // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
   // // but more persistant than storing it as a varible and loosing data over restarts.
@@ -63,7 +63,7 @@ app.get("/apiTest", (req, res) => {
 
 // forgot i was working with persisant data and uh it sucked.
 app.get("/reset", (req, res) => {
-  redisC.del("exectues")
+  redisC.del("key")
   res.json("yeah its done. good shit go home now.")
 })
 
