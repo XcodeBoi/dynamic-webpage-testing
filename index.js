@@ -56,31 +56,6 @@ app.get("/apiTest", (req, res) => {
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
 
-// I didnt write the /repos page.
-
-app.get("/repos", async (req, res) => {
-  const username = req.query.username || "myogeshchavan97";
-  console.log(req)
-  console.log(res)
-  try {
-    const result = await axios.get(
-      `https://api.github.com/users/${username}/repos`
-    );
-    const repos = result.data.map((repo) => ({
-      name: repo.name,
-      url: repo.html_url,
-      description: repo.description,
-    }));
-    console.log(repos)
-    res.render("repos", {
-      repos
-    });
-  } catch (error) {
-    console.log(error);
-    res.status(400).send("Error while getting list of repositories");
-  }
-});
-
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
 // the || 3000 is for when i was able to test this in a local envrioment...
