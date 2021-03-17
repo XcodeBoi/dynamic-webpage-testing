@@ -55,6 +55,11 @@ app.get("/apiTest", (req, res) => {
   });
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
+app.get("/endpointTest", (req, res) => {
+  // res.render("number");
+  res.header("number", "100");
+  res.json({"number": "100"})
+})
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
