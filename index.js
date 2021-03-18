@@ -52,10 +52,15 @@ app.get("/apiTest", (req, res) => {
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   redisC.get("exectuess", (err, reply) => {
     res.header("number", reply);
-    res.render("number");
+    res.render("number", {reply: reply});
+    // the raw data is now communicated as a header to allow for style information to...
+    // be associated to the page.
+    // see avatarbot:index.js:27 for how that data can be grabed
+    // line 55 renders the style page while passing the varible reply with the value of the redis reply
   });
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
+
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
