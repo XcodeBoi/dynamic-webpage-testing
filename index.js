@@ -35,15 +35,13 @@ app.get("/apiTest", (req, res) => {
     if (err) throw err;
     console.log(reply)
     if(reply == 0) {
-      redisC.set("exectuess", "0")
+      redisC.set("exectuess", "0") // why is this a string if im doing maths? becuase redis only works with string types. and some other types. but its cleanest with string types. i hope.
     }
   })
   redisC.get("exectuess", (err, reply) => {
     if (err) throw err;
     console.log("get reply: " + reply);
     var dataCache = reply
-    console.log(dataCache);
-    console.log((parseInt(dataCache) + 1).toString());
     redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
       if (err) throw err;
     })
@@ -52,11 +50,12 @@ app.get("/apiTest", (req, res) => {
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   redisC.get("exectuess", (err, reply) => {
     res.header("number", reply);
-    if(req.headers.usertype != "bot"){
+    if(req.headers.usertype != "bot"){ // the discord bot tells the program its a bot in the headers
       res.render("number", {reply: reply});
     }
     else {
-      res.json(0)
+      res.json(0) // this menas when i add heavy stylisation to the page, the bot wont be slowed down from a shitton
+      // of unrelated data
     }
     // the raw data is now communicated as a header to allow for style information to...
     // be associated to the page.
