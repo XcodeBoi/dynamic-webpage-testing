@@ -51,15 +51,11 @@ app.get("/apiTest", (req, res) => {
   // update the key with the new amount of views. 
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   redisC.get("exectuess", (err, reply) => {
-    res.json(reply);
+    res.header("number", reply);
+    res.render("number");
   });
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
-app.get("/endpointTest", (req, res) => {
-  // res.render("number");
-  res.header("number", "100");
-  res.json({"number": "100"})
-})
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
