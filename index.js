@@ -54,7 +54,7 @@ app.get("/apiTest", (req, res) => {
   redisC.get("exectuess", (err, reply) => {
     res.header("number", reply);
     if(req.headers.usertype != "bot"){ // the discord bot tells the program its a bot in the headers
-      res.render("number", {reply: reply});
+      res.render("number", {reply: reply, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
     }
     else {
       res.json(0) // this menas when i add heavy stylisation to the page, the bot wont be slowed down from a shitton
