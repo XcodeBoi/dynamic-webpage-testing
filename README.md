@@ -14,6 +14,7 @@ todo:
 - neko api
 - friend data
 - discord bot
+- anime.js
 
 Env details:
 This runs on heroku. It is configured to auto deploy on updates to the repo.
