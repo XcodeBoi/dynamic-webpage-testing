@@ -55,6 +55,9 @@ app.get("/apiTest", (req, res) => {
     if(req.headers.usertype != "bot"){
       res.render("number", {reply: reply});
     }
+    else {
+      res.json(0)
+    }
     // the raw data is now communicated as a header to allow for style information to...
     // be associated to the page.
     // see avatarbot:index.js:27 for how that data can be grabed
