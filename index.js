@@ -52,10 +52,9 @@ app.get("/apiTest", (req, res) => {
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   redisC.get("exectuess", (err, reply) => {
     res.header("number", reply);
-    if(req.headers.usertype == "bot"){
-      console.log("bot asked")
+    if(req.headers.usertype != "bot"){
+      res.render("number", {reply: reply});
     }
-    res.render("number", {reply: reply});
     // the raw data is now communicated as a header to allow for style information to...
     // be associated to the page.
     // see avatarbot:index.js:27 for how that data can be grabed
