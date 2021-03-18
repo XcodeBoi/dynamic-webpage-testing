@@ -52,7 +52,9 @@ app.get("/apiTest", (req, res) => {
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
   redisC.get("exectuess", (err, reply) => {
     res.header("number", reply);
-    console.log(req);
+    if(req.headers.usertype == "bot"){
+      console.log("bot asked")
+    }
     res.render("number", {reply: reply});
     // the raw data is now communicated as a header to allow for style information to...
     // be associated to the page.
