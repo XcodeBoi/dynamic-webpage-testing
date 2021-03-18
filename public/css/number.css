@@ -1,4 +1,8 @@
 h1 {
-	text-align: center;
-	margin: 10px 35% 0px 35%;
+	position: absolute;
+	top: 35%;
+	margin: 0px 50% 0px 50%;
+}
+html {
+	background-image: <%= imag %>;
 }

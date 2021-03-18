@@ -5,6 +5,9 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const axios = require("axios");
+const unsplash = require("unsplash-js");
+const nodeFetch = require("node-fetch") // didnt want to spend the time working out if axios would work with splash api
+const splashApi = unsplash.createApi({accessKey: process.env.splash, fetch: nodeFetch}) // enviroment key for the api
 const redis = require("redis");
 const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
 
@@ -64,6 +67,19 @@ app.get("/apiTest", (req, res) => {
   });
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
+
+app.get("/splashapi", (req, res) => {
+  splashApi.photos.getRandom({query: "mountains", orientation: "landscape"}).then(result => { // hhuh callbacks and stuff are making sense now
+    res.render("splash", {imag: result.response.urls.regular}); // theres no wayyyyy it would ever return something...
+    // that isnt 200 right? right...?
+  })
+  // tf i troubleshooted that first try??? am i.... understanding this???
+})
+
+app.get("/tetro", (req, res) => {
+  const imag = "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg" // this isnt an api, this is a game who i stole backgrounds from
+  res.render("splash", {imag: imag});
+})
 
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
