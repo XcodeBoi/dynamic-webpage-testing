@@ -10,6 +10,23 @@ const nodeFetch = require("node-fetch") // didnt want to spend the time working 
 const splashApi = unsplash.createApi({accessKey: process.env.splash, fetch: nodeFetch}) // enviroment key for the api
 const redis = require("redis");
 const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
+const fire = require('firebase-admin'); // alterative db testing
+
+fire.initializeApp({
+  credential: fire.credential.cert({
+  "type": "service_account",
+  "project_id": "quick-project-210902",
+  "private_key_id": proccess.env.private_key_id,
+  "private_key": proccess.env.private_key,
+  "client_email": proccess.env.client_email,
+  "client_id": proccess.env.client_id,
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": proccess.env.client_x509_cert_url
+})
+});
+const firedb = fire.firestore();
 
 redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
   console.error(error);
@@ -51,7 +68,7 @@ app.get("/apiTest", (req, res) => {
   })
   // update the key with the new amount of views. 
   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
-  redisC.get("exectuess", (err, reply) => {
+  redisC.get("exectuess", (err, reply) => { // promises and callbacks make sense now
     res.header("number", reply);
     if(req.headers.usertype != "bot"){ // the discord bot tells the program its a bot in the headers
       res.render("number", {reply: reply, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
@@ -79,6 +96,19 @@ app.get("/splashapi", (req, res) => {
 app.get("/tetro", (req, res) => {
   const imag = "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg" // this isnt an api, this is a game who i stole backgrounds from
   res.render("splash", {imag: imag});
+})
+
+app.get("/sendData", async (req, res) => { // dont know if i need an await here but uh it said it in the docs?
+  await firedb.collection('users').doc('alovelace').set({ // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
+    first: 'Ada',
+    last: 'Lovelace',
+    born: 1815
+  });
+  res.render("index")
+})
+
+app.get("/recieveData", async (req, res) => { // dont know if i need an await here but uh it said it in the docs?
+  firedb.collection('users').doc('alovelace').get().then(result => {console.log(result); res.render("index")})
 })
 
 
