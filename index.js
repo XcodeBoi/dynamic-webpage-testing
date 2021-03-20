@@ -9,7 +9,7 @@ const unsplash = require("unsplash-js");
 const nodeFetch = require("node-fetch") // didnt want to spend the time working out if axios would work with splash api
 const splashApi = unsplash.createApi({accessKey: process.env.splash, fetch: nodeFetch}) // enviroment key for the api
 const redis = require("redis");
-// const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
+const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
 const fire = require('firebase-admin'); // alterative db testing
 
 // fire.initializeApp({
