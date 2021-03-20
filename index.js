@@ -37,42 +37,42 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-// app.get("/apiTest", (req, res) => {
-//   // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
-//   // but more persistant than storing it as a varible and loosing data over restarts.
-//   redisC.exists("exectuess", (err, reply) => {
-//     if (err) throw err;
-//     console.log(reply)
-//     if(reply == 0) {
-//       redisC.set("exectuess", "0") // why is this a string if im doing maths? becuase redis only works with string types. and some other types. but its cleanest with string types. i hope.
-//     }
-//   })
-//   redisC.get("exectuess", (err, reply) => {
-//     if (err) throw err;
-//     console.log("get reply: " + reply);
-//     var dataCache = reply
-//     redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
-//       if (err) throw err;
-//     })
-//   })
-//   // update the key with the new amount of views. 
-//   // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
-//   redisC.get("exectuess", (err, reply) => { // promises and callbacks make sense now
-//     res.header("number", reply);
-//     if(req.headers.usertype != "bot"){ // the discord bot tells the program its a bot in the headers
-//       res.render("number", {reply: reply, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
-//     }
-//     else {
-//       res.json(0) // this menas when i add heavy stylisation to the page, the bot wont be slowed down from a shitton
-//       // of unrelated data
-//     }
-//     // the raw data is now communicated as a header to allow for style information to...
-//     // be associated to the page.
-//     // see avatarbot:index.js:27 for how that data can be grabed
-//     // line 55 renders the style page while passing the varible reply with the value of the redis reply
-//   });
-//   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
-// });
+app.get("/apiTest", (req, res) => {
+  // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
+  // but more persistant than storing it as a varible and loosing data over restarts.
+  redisC.exists("exectuess", (err, reply) => {
+    if (err) throw err;
+    console.log(reply)
+    if(reply == 0) {
+      redisC.set("exectuess", "0") // why is this a string if im doing maths? becuase redis only works with string types. and some other types. but its cleanest with string types. i hope.
+    }
+  })
+  redisC.get("exectuess", (err, reply) => {
+    if (err) throw err;
+    console.log("get reply: " + reply);
+    var dataCache = reply
+    redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
+      if (err) throw err;
+    })
+  })
+  // update the key with the new amount of views. 
+  // the string convertion is dumb as anything but redis didnt want to store my poor intger and i didnt want to fix it properly.
+  redisC.get("exectuess", (err, reply) => { // promises and callbacks make sense now
+    res.header("number", reply);
+    if(req.headers.usertype != "bot"){ // the discord bot tells the program its a bot in the headers
+      res.render("number", {reply: reply, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
+    }
+    else {
+      res.json(0) // this menas when i add heavy stylisation to the page, the bot wont be slowed down from a shitton
+      // of unrelated data
+    }
+    // the raw data is now communicated as a header to allow for style information to...
+    // be associated to the page.
+    // see avatarbot:index.js:27 for how that data can be grabed
+    // line 55 renders the style page while passing the varible reply with the value of the redis reply
+  });
+  // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
+});
 
 app.get("/splashapi", (req, res) => {
   splashApi.photos.getRandom({query: "mountains", orientation: "landscape"}).then(result => { // hhuh callbacks and stuff are making sense now
