@@ -12,10 +12,10 @@ const redis = require("redis");
 // const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
 const fire = require('firebase-admin'); // alterative db testing
 
-fire.initializeApp({
-  credential: fire.credential.cert()
-});
-const firedb = fire.firestore();
+// fire.initializeApp({
+//   credential: fire.credential.cert()
+// });
+// const firedb = fire.firestore();
 
 // redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
 //   console.error(error);
