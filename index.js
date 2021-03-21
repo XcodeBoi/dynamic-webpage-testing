@@ -100,17 +100,23 @@ app.get("/tetro", (req, res) => {
   res.render("splash", {imag: imag});
 })
 
-app.get("/dbWipe", (req, res) => {
-  // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
-  firedb.collection("stats").doc("counter").set({num: 0}).then(res.json("wipe complete"))
-})
+// i didnt want a friend wiping my progress so i commented it
 
-app.get("/apiTestfire", (req, res) => { // bad things are going on here, and it doesnt work. but i pushed it anyway.
-  firedb.collection("stats").doc("counter").get().then(result => {
-    var resultstore = result._fieldsProto.num.integerValue + 1
-    firedb.collection("stats").doc("counter").set({num: resultstore})
+// app.get("/dbWipe", (req, res) => {
+//   // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
+//   firedb.collection("stats").doc("counter").set({num: 0}).then(res.json("wipe complete"))
+// })
+
+// this was doing async things without me telling it to
+// so i forced some awaits in
+// without the awaits it grabs an outdated number
+// perhaps its due to callbacks or something idk
+
+app.get("/apiTestfire", async (req, res) => { 
+  await firedb.collection("stats").doc("counter").get().then(async result => {
+    await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
   })
-  firedb.collection("stats").doc("counter").get().then(result => res.json(result._fieldsProto.num))
+  firedb.collection("stats").doc("counter").get().then(result => res.json(result.data().num))
 })
 
 
