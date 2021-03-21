@@ -1,7 +1,7 @@
 h1 {
 	position: absolute;
 	top: 35%;
-	margin: 0px 50% 0px 50%;
+	margin: 0 50%;
 }
 html {
 	background-image: <%= imag %>;
