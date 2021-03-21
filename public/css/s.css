@@ -4,29 +4,29 @@ html {
   color: #ccc;
 }
 body {
-  margin: 5px 30% 5px 30%;
+  margin: 5px 30%;
 }
 p {
-  margin: 0px 0px 0px 0px;
+  margin: 0;
 }
 .header {
 
   font-size: 1.5em;
   color: rgb(0, 195, 137);
-  margin: 2.1em 15px 1em 15px;
+  margin: 2.1em 15px 1em;
 }
 .content {
   font-size: 0.9em;
   text-align: justify;
 }
 .content p {
-  margin: 20px 30px 20px 30px;
+  margin: 20px 30px;
 }
 .content table {
-  margin: 20px 30px 20px 30px;
+  margin: 20px 30px;
 }
 .footer {
-  margin: 1em 5% 50px 5%;
+  margin: 1em 5% 50px;
   color: rgb(94, 94, 94);
   font-size: 11px;
 }
