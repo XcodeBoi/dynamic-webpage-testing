@@ -4,7 +4,6 @@
 const express = require("express");
 const app = express();
 const path = require("path");
-const axios = require("axios");
 const unsplash = require("unsplash-js");
 const nodeFetch = require("node-fetch") // didnt want to spend the time working out if axios would work with splash api
 const splashApi = unsplash.createApi({accessKey: process.env.splash, fetch: nodeFetch}) // enviroment key for the api
@@ -30,7 +29,7 @@ fire.initializeApp({
 })
 });
 const firedb = fire.firestore();
-console.log(process.env.test)
+
 redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
   console.error(error);
 });
@@ -65,7 +64,7 @@ app.get("/apiTest", (req, res) => {
     if (err) throw err;
     console.log("get reply: " + reply);
     var dataCache = reply
-    redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), (err, reply) => {
+    redisC.set("exectuess", (parseInt(dataCache) + 1).toString(), err => {
       if (err) throw err;
     })
   })
