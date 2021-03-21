@@ -12,14 +12,28 @@ const redis = require("redis");
 const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
 const fire = require('firebase-admin'); // alterative db testing
 
-// fire.initializeApp({
-//   credential: fire.credential.cert()
-// });
-// const firedb = fire.firestore();
-
-// redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
-//   console.error(error);
-// });
+fire.initializeApp({
+  credential: fire.credential.cert({
+  "type": "service_account",
+  "project_id": process.env.project_id,
+  "private_key_id": process.env.private_key_id,
+  // https://stackoverflow.com/questions/39492587/escaping-issue-with-firebase-privatekey-as-a-heroku-config-variable/41044630#41044630
+  // 😑 this caused me more pain than it should have. i wasted minutes trying to solve it myself before googling
+  // i figured it had something to do with escaping but printing the value didnt show anything abnormal. ):
+  "private_key": process.env.test.replace(/\\n/g, '\n'),
+  "client_email": process.env.client_email,
+  "client_id": process.env.client_id,
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": process.env.processsepcialthing
+})
+});
+const firedb = fire.firestore();
+console.log(process.env.test)
+redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
+  console.error(error);
+});
 
 app.set("view engine", "ejs"); // support for ejs
 app.use(express.static(path.join(__dirname, "public"))); // This means when I reference files it will prefix public to the path.
@@ -68,7 +82,7 @@ app.get("/apiTest", (req, res) => {
     }
     // the raw data is now communicated as a header to allow for style information to...
     // be associated to the page.
-    // see avatarbot:index.js:27 for how that data can be grabed
+    // see avatarbot:index.js:26 for how that data can be grabed
     // line 55 renders the style page while passing the varible reply with the value of the redis reply
   });
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
@@ -87,24 +101,17 @@ app.get("/tetro", (req, res) => {
   res.render("splash", {imag: imag});
 })
 
-app.get("/apiTestfire", (req, res) => {
-  //a
+app.get("/dbWipe", (req, res) => {
+  // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
+  firedb.collection("stats").doc("counter").set({num: 0}).then(res.json("wipe complete"))
 })
 
-// firebase testing below
-
-app.get("/sendData", async (req, res) => { // dont know if i need an await here but uh it said it in the docs?
-  await firedb.collection('users').doc('alovelace').set({ // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
-    first: 'Ada',
-    last: 'Lovelace',
-    born: 1815
-  }).then(result => console.log(result));
-  res.render("index")
-})
-
-app.get("/recieveData", async (req, res) => { // dont know if i need an await here but uh it said it in the docs?
-  await firedb.collection('users').doc('alovelace').get().then(result => console.log(result._fieldsProto.born.integerValue));
-  res.render("index");
+app.get("/apiTestfire", (req, res) => { // bad things are going on here, and it doesnt work. but i pushed it anyway.
+  firedb.collection("stats").doc("counter").get().then(result => {
+    var resultstore = result._fieldsProto.num.integerValue + 1
+    firedb.collection("stats").doc("counter").set({num: resultstore})
+  })
+  firedb.collection("stats").doc("counter").get().then(result => res.json(result._fieldsProto.num))
 })
 
 

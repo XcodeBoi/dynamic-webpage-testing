@@ -1,11 +1,11 @@
 
-This is part of my highschool web development class 
+my cool webapp yeah its mostly just a test project.
 
-I wouldn't recommend using this code for anything other than stalking my terribly uninformed programming
+[![CodeFactor](https://www.codefactor.io/repository/github/xcodeboi/dynamic-webpage-testing/badge)](https://www.codefactor.io/repository/github/xcodeboi/dynamic-webpage-testing)
 
 FAQ:
 Why are there so many commits? 
-- because i tested in production without never touching redis or a proper node app.
+- because i tested in production without never touching redis or a proper node app. and without configuring heroku cli.
 
 I used some guides. heres one i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
@@ -23,4 +23,4 @@ https://skolwebapp.herokuapp.com/
 
 The page will take a little while to load initally cause the server seems to just like sleeping sometimes.
 
-The program has now been adapted to run on a db hosted by heroku, and as such it cannot be run on a local enviroment.
+This cannot be run in a local enviroment as is, there are a number of enviroment varibles.
