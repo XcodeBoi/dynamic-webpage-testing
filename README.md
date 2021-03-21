@@ -1,11 +1,11 @@
 
-This is part of my highschool web development class 
+my cool webapp yeah its mostly just a test project.
 
-I wouldn't recommend using this code for anything other than stalking my terribly uninformed programming
+[![CodeFactor](https://www.codefactor.io/repository/github/xcodeboi/dynamic-webpage-testing/badge)](https://www.codefactor.io/repository/github/xcodeboi/dynamic-webpage-testing)
 
 FAQ:
 Why are there so many commits? 
-- because i tested in production without never touching redis or a proper node app.
+- because i tested in production without never touching redis or a proper node app and without heroku cli
 Why won't the background load on the number page?
 - Work enviroment networks with proxies tend to block internet pages assoicated with games, and the backgrounds are retrived from 
 TETR.IO
@@ -33,3 +33,4 @@ other todo:
 - set up heroku pipelines for better testing
 - styling for number page
 - firebase authentication for db
+
