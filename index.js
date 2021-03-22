@@ -120,9 +120,9 @@ app.get("/apiTest", async (req, res) => {
     await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
   })
   firedb.collection("stats").doc("counter").get().then(result => {
-    res.header("number", reply);
+    res.header("number", result.data().num);
     if(req.headers.usertype != "bot"){
-      res.render("number", {reply: reply, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
+      res.render("number", {reply: result.data().num, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
     }
     else {
       res.json(0)
