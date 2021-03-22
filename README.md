@@ -9,6 +9,8 @@ Why are there so many commits?
 Why won't the background load on the number page?
 - Work enviroment networks with proxies tend to block internet pages assoicated with games, and the backgrounds are retrived from 
 TETR.IO
+Why did you move from redis to firestore?
+- Redis hosted on aws through heroku did not have persistant data across db crashes on its free tier. Firestore does. The code is also simplier for my use case, and is lower latency. I think.
 
 I used some guides. heres one i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
