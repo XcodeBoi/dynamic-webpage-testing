@@ -6,9 +6,10 @@ my cool webapp yeah its mostly just a test project.
 FAQ:
 Why are there so many commits? 
 - because i tested in production without never touching redis or a proper node app and without heroku cli
+
 Why won't the background load on the number page?
-- Work enviroment networks with proxies tend to block internet pages assoicated with games, and the backgrounds are retrived from 
-TETR.IO
+- Work enviroment networks with proxies tend to block internet pages assoicated with games, and the backgrounds are retrived from TETR.IO
+
 Why did you move from redis to firestore?
 - Redis hosted on aws through heroku did not have persistant data across db crashes on its free tier. Firestore does. The code is also simplier for my use case. I'll write a cool blog post on an up coming part of my site
 
