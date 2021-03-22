@@ -5,7 +5,8 @@ const express = require("express");
 const app = express();
 const path = require("path");
 const unsplash = require("unsplash-js");
-const nodeFetch = require("node-fetch") // didnt want to spend the time working out if axios would work with splash api
+const axios = require("axios");
+const nodeFetch = require("node-fetch"); // didnt want to spend the time working out if axios would work with splash api
 const splashApi = unsplash.createApi({accessKey: process.env.splash, fetch: nodeFetch}) // enviroment key for the api
 const redis = require("redis");
 const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
@@ -117,6 +118,23 @@ app.get("/apiTestfire", async (req, res) => {
     await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
   })
   firedb.collection("stats").doc("counter").get().then(result => res.json(result.data().num))
+})
+
+app.get("/anilist", (req, res) => {
+  // documentation 
+  // var url = 'https://graphql.anilist.co',
+  //     options = {
+  //         method: 'POST',
+  //         headers: {
+  //             'Content-Type': 'application/json',
+  //             'Accept': 'application/json',
+  //         },
+  //         body: JSON.stringify({
+  //             query: query,
+  //             variables: variables
+  //         })
+  //     };
+  axios.post("https://graphql.anilist.co", {"query": "qeury", "variables": "varible"}).then(result => console.log(result))
 })
 
 
