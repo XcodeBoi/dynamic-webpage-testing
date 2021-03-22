@@ -10,27 +10,31 @@ Why won't the background load on the number page?
 - Work enviroment networks with proxies tend to block internet pages assoicated with games, and the backgrounds are retrived from 
 TETR.IO
 
-
 I used some guides. heres one i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
 
+Env details:
+https://skolwebapp.herokuapp.com/
+This runs on heroku. It is configured to auto deploy on updates to the repo.
+The page will take a little while to load initally cause the server seems to just like sleeping sometimes.
+
 todo:
 - neko api
+- anilist api
 - friend data
 - discord bot
 - anime.js
+- blog
+- sitemap spiderweb
+- real time
 
-Env details:
-This runs on heroku. It is configured to auto deploy on updates to the repo.
+other todo
 
-https://skolwebapp.herokuapp.com/
-
-The page will take a little while to load initally cause the server seems to just like sleeping sometimes.
-
-The program has now been adapted to run on a db hosted by heroku, and as such it cannot be run on a local enviroment.
-
-other todo:
-- set up heroku pipelines for better testing
 - styling for number page
-- firebase authentication for db
 
+done:
+- heroku cli, i can now test locally. yay. dunno why i didnt do this first.
+- .env configured on macos enviroment
+- brew autofilling setup on zsh
+- migrate default support to firebase db
+- migrate data values

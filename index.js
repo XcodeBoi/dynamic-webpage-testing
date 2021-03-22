@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/apiTest", (req, res) => {
+app.get("/apiTestRedis", (req, res) => {
   // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
   // but more persistant than storing it as a varible and loosing data over restarts.
   redisC.exists("exectuess", (err, reply) => {
@@ -113,11 +113,21 @@ app.get("/tetro", (req, res) => {
 // without the awaits it grabs an outdated number
 // perhaps its due to callbacks or something idk
 
-app.get("/apiTestfire", async (req, res) => { 
+// waohhhh..... this is way simpler than my redis implementation. 
+
+app.get("/apiTest", async (req, res) => { 
   await firedb.collection("stats").doc("counter").get().then(async result => {
     await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
   })
-  firedb.collection("stats").doc("counter").get().then(result => res.json(result.data().num))
+  firedb.collection("stats").doc("counter").get().then(result => {
+    res.header("number", reply);
+    if(req.headers.usertype != "bot"){
+      res.render("number", {reply: reply, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
+    }
+    else {
+      res.json(0)
+    }
+  })
 })
 
 app.get("/anilist", (req, res) => {
