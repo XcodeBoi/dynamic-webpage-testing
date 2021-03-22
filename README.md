@@ -10,7 +10,7 @@ Why won't the background load on the number page?
 - Work enviroment networks with proxies tend to block internet pages assoicated with games, and the backgrounds are retrived from 
 TETR.IO
 Why did you move from redis to firestore?
-- Redis hosted on aws through heroku did not have persistant data across db crashes on its free tier. Firestore does. The code is also simplier for my use case, and is lower latency. I think. (just checked this 10 minutes later - it isnt lower latency considering heroku is hosted on aws too so like its actually instant on redis cause its reading from a local source but uh yeah)
+- Redis hosted on aws through heroku did not have persistant data across db crashes on its free tier. Firestore does. The code is also simplier for my use case. I'll write a cool blog post on an up coming part of my site
 
 I used some guides. heres one i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
@@ -32,6 +32,7 @@ todo:
 
 other todo
 
+- windows zsh (powershell sucks)
 - styling for number page
 
 done:
