@@ -147,6 +147,8 @@ app.get("/anilist", (req, res) => {
   axios.post("https://graphql.anilist.co", {"query": "qeury", "variables": "varible"}).then(result => console.log(result))
 })
 
+app.get("/ejsTesting", (req, res) => res.render("blogtestingstuff"))
+
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
