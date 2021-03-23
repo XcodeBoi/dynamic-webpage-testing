@@ -13,10 +13,13 @@ Why won't the background load on the number page?
 
 Why did you move from redis to firestore?
 - Redis hosted on aws through heroku did not have persistant data across db crashes on its free tier. Firestore does. The code is also simplier for my use case. I'll write a cool blog post on an up coming part of my site
+
 Why did you use socket.io and then firestore on backend? You know firebase has a real time db right?
 - yeah i might try that too at some point but like i wanted to try websockets
+
 Why is this called the FAQ? Nobody has ever asked a single question about your repo.
 - let a man dream. 
+
 You know nobody who even visits this repo is gonna read the readme beyond the first line right?
 - ):
 
