@@ -38,7 +38,7 @@ todo:
 - markdown dynamic image thing
 - electron app injection (into canary)
 - neko, anilist api
-- styling for number page (i am lazy why do css styling when you could be writing a BLOG PAGE!!!! YEAH BLOG PAGEEE!!!!1!)
+- styling for number page
 - data set visualisation
 - anime.js
 
