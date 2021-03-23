@@ -13,8 +13,12 @@ Why won't the background load on the number page?
 Why did you move from redis to firestore?
 - Redis hosted on aws through heroku did not have persistant data across db crashes on its free tier. Firestore does. The code is also simplier for my use case. I'll write a cool blog post on an up coming part of my site
 
-I used some guides. heres one i remembered to save:
+I used some guides. heres some i saved:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
+- https://livecodestream.dev/post/a-starter-guide-to-building-real-time-applications-with-nodejs/
+
+heres a really awesome site that is really wondeful and has this really awesome and interesting article on it:
+- https://nee.lv/
 
 Env details:
 https://skolwebapp.herokuapp.com/
@@ -33,10 +37,11 @@ todo:
 
 other todo
 
-- windows zsh (powershell sucks)
-- styling for number page
+- windows zsh + brew + whatnot(powershell sucks)
+
 
 done:
+- lazygit alias cause writing "lazygit" sucks
 - heroku cli, i can now test locally. yay. dunno why i didnt do this first.
 - .env configured on macos enviroment
 - brew autofilling setup on zsh
