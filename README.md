@@ -38,6 +38,7 @@ todo:
 - styling for number page (i am lazy why do css styling when you could be writing a BLOG PAGE!!!! YEAH BLOG PAGEEE!!!!1!)
 - data set visualisation
 - anime.js
+- prefetch pages javascript
 
 more detailed todo:
 - cache implentation for latency fix
