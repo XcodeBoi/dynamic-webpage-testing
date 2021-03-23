@@ -31,6 +31,9 @@ fire.initializeApp({
 });
 const firedb = fire.firestore();
 
+var numCache = 0
+firedb.collection("stats").doc("counter").get().then(result => {numCache = result.data().num; console.log(numCache)})
+
 redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
   console.error(error);
 });
@@ -51,7 +54,27 @@ app.get("/", (req, res) => {
   res.render("index");
 });
 
-app.get("/apiTestRedis", (req, res) => {
+app.get("/splashapi", (req, res) => {
+  splashApi.photos.getRandom({query: "mountains", orientation: "landscape"}).then(result => { // hhuh callbacks and stuff are making sense now
+    res.render("splash", {imag: result.response.urls.regular}); // theres no wayyyyy it would ever return something...
+    // that isnt 200 right? right...?
+  })
+  // tf i troubleshooted that first try??? am i.... understanding this???
+})
+
+app.get("/tetro", (req, res) => {
+  const imag = "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg" // this isnt an api, this is a game who i stole backgrounds from
+  res.render("splash", {imag: imag});
+})
+
+// i didnt want a friend wiping my progress so i commented it
+
+// app.get("/dbWipe", (req, res) => {
+//   // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
+//   firedb.collection("stats").doc("counter").set({num: 0}).then(res.json("wipe complete"))
+// })
+
+app.get("/api/v1", (req, res) => {
   // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
   // but more persistant than storing it as a varible and loosing data over restarts.
   redisC.exists("exectuess", (err, reply) => {
@@ -88,40 +111,21 @@ app.get("/apiTestRedis", (req, res) => {
   // holy crap just writting this after finishing... IM SO HAPPY I GET IT NOW
 });
 
-app.get("/splashapi", (req, res) => {
-  splashApi.photos.getRandom({query: "mountains", orientation: "landscape"}).then(result => { // hhuh callbacks and stuff are making sense now
-    res.render("splash", {imag: result.response.urls.regular}); // theres no wayyyyy it would ever return something...
-    // that isnt 200 right? right...?
-  })
-  // tf i troubleshooted that first try??? am i.... understanding this???
-})
-
-app.get("/tetro", (req, res) => {
-  const imag = "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg" // this isnt an api, this is a game who i stole backgrounds from
-  res.render("splash", {imag: imag});
-})
-
-// i didnt want a friend wiping my progress so i commented it
-
-// app.get("/dbWipe", (req, res) => {
-//   // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
-//   firedb.collection("stats").doc("counter").set({num: 0}).then(res.json("wipe complete"))
-// })
-
 // this was doing async things without me telling it to
 // so i forced some awaits in
 // without the awaits it grabs an outdated number
-// perhaps its due to callbacks or something idk
+// perhaps its due to with the way promises are auto handled asynchronously
 
 // waohhhh..... this is way simpler than my redis implementation. 
+// promises are actually great compared to callbacks
 
-app.get("/apiTest", async (req, res) => { 
+app.get("/api/v2/deprecated", async (req, res) => {
   await firedb.collection("stats").doc("counter").get().then(async result => {
     await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
   })
   firedb.collection("stats").doc("counter").get().then(result => {
     res.header("number", result.data().num);
-    if(req.headers.usertype != "bot"){
+    if(req.headers.usertype != "bot"){ // why do res.json() when you could do res.render()
       res.render("number", {reply: result.data().num, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
     }
     else {
@@ -129,6 +133,33 @@ app.get("/apiTest", async (req, res) => {
     }
   })
 })
+
+app.get("/api/v2", async (req, res) => {
+  await firedb.collection("stats").doc("counter").get().then(async result => {
+    await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
+  })
+  firedb.collection("stats").doc("counter").get().then(result => {
+    res.header("number", result.data().num);
+    if(req.headers.usertype != "bot"){ // why do res.json() when you could do res.render()
+      res.render("number", {reply: result.data().num, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
+    }
+    else {
+      res.json(0)
+    }
+  })
+})
+
+app.get("/api", (req, res) => {
+  res.json({"api/v2": "latest", "api/v2/deprecated": "deprecated version of api access, though passed params are same", "api/v1": "old api, you can still access redis data"})
+})
+
+// heres my epic documenation I just wrote myself just now that I'll but in a sick new blog post or soemthign:
+// v1 refers to the old version, which is remaining to be able to access the old data
+// v2 refers to a new version of the api which will return different data upon giving it the same
+// params..... hence v2!!!!
+// deprecated refers to the api being active and usable, but isnt the newest
+// and coolest and fastest version (with cache!!!!!)
+// uh actually im going to bed cache comes tomorrow.
 
 app.get("/anilist", (req, res) => {
   // documentation 
@@ -156,6 +187,8 @@ app.get("/anilist", (req, res) => {
 // console.log logs to console im pretty sure thats self explantory but...
 // im breaking it down just in case you dont know and so i can properly understand..
 // the code myself.
+
+// well i have a local .env file that is on post 5000 now so the || operator doesnt actually do anything.
 
 app.listen(process.env.PORT || 3000, () => {
   console.log("server started on port 3000");
