@@ -26,6 +26,7 @@
     "mysql": "^2.18.1",
     "node-fetch": "^2.6.1",
     "redis": "^3.0.2",
+    "socket.io": "^4.0.0",
     "unsplash-js": "^7.0.8"
   },
   "devDependencies": {
