@@ -74,7 +74,9 @@ app.get("/tetro", (req, res) => {
 // initialisation of cache
 var numCache = 0
 var numCacheCache = 0
-firedb.collection("stats").doc("counter").get().then(result => {numCache = result.data().num; console.log(numCache)})
+// never before have I found the need to declare two varibles to the same value in the same decloration. I had forgotten...
+// it was even possible
+firedb.collection("stats").doc("counter").get().then(result => {numCacheCache = numCache = result.data().num; console.log(numCache); console.log(numCacheCache)})
 
 // regualr db updates
 
