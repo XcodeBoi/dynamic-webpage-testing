@@ -31,9 +31,6 @@ fire.initializeApp({
 });
 const firedb = fire.firestore();
 
-var numCache = 0
-firedb.collection("stats").doc("counter").get().then(result => {numCache = result.data().num; console.log(numCache)})
-
 redisC.on("error", function(error) { // yeah i add this like im gonna know what to do if it errors
   console.error(error);
 });
@@ -73,6 +70,24 @@ app.get("/tetro", (req, res) => {
 //   // accesses the value in the document that is part of the collection. google firebase firestore hierarchy
 //   firedb.collection("stats").doc("counter").set({num: 0}).then(res.json("wipe complete"))
 // })
+
+// initialisation of cache
+var numCache = 0
+var numCacheCache = 0
+firedb.collection("stats").doc("counter").get().then(result => {numCache = result.data().num; console.log(numCache)})
+
+// regualr db updates
+
+function fireRefresh() {
+  console.log("ftest")
+  if(numCacheCache != numCache) { // optimised for minimal api calls
+    console.log("firestore updated")
+    firedb.collection("stats").doc("counter").set({num: numCache})
+    numCacheCache = numCache
+  }
+}
+
+setInterval(fireRefresh, 300000)
 
 app.get("/api/v1", (req, res) => {
   // redis is used here for persistant data. "persistant" because if the db crashes i loose everything caues i didnt pay,
@@ -134,23 +149,20 @@ app.get("/api/v2/deprecated", async (req, res) => {
   })
 })
 
-app.get("/api/v2", async (req, res) => {
-  await firedb.collection("stats").doc("counter").get().then(async result => {
-    await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
-  })
-  firedb.collection("stats").doc("counter").get().then(result => {
-    res.header("number", result.data().num);
-    if(req.headers.usertype != "bot"){ // why do res.json() when you could do res.render()
-      res.render("number", {reply: result.data().num, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
-    }
-    else {
-      res.json(0)
-    }
-  })
+app.get("/api/v2", (req, res) => {
+  numCache = numCache + 1
+  res.header("number", numCache);
+  if(req.headers.usertype != "bot"){ // why do res.json() when you could do res.render()
+    res.render("number", {reply: numCache, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
+  }
+  else {
+    res.json(0)
+  }
 })
 
-app.get("/api", (req, res) => {
-  res.json({"api/v2": "latest", "api/v2/deprecated": "deprecated version of api access, though passed params are same", "api/v1": "old api, you can still access redis data"})
+app.get("/api/v2/fupdate", (req, res) => {
+  firedb.collection("stats").doc("counter").set({num: numCache})
+  res.json("force updated firebase.")
 })
 
 // heres my epic documenation I just wrote myself just now that I'll but in a sick new blog post or soemthign:
@@ -159,7 +171,16 @@ app.get("/api", (req, res) => {
 // params..... hence v2!!!!
 // deprecated refers to the api being active and usable, but isnt the newest
 // and coolest and fastest version (with cache!!!!!)
-// uh actually im going to bed cache comes tomorrow.
+// set interval forces the server every now and again to update firestore
+// if the server crashes and burns or is forced to a halt, minimal data will be lost
+
+app.get("/apiTest/anilist", (req, res) => { // I need to make this auto generated but I don't know how
+  res.json({"api/v2": "latest", "api/v2/deprecated": "deprecated version of api access, though passed params are same", "api/v1": "old api, you can still access redis data"})
+})
+
+app.get("/apiTest/sheets", (req, res) => {
+  axios.post(process.env.googleSheet, {})
+})
 
 app.get("/anilist", (req, res) => {
   // documentation 
