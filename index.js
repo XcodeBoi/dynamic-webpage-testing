@@ -134,7 +134,7 @@ app.get("/api/v1", (req, res) => {
 // waohhhh..... this is way simpler than my redis implementation. 
 // promises are actually great compared to callbacks
 
-app.get("/api/v2/deprecated", async (req, res) => {
+app.get("/api/v2", async (req, res) => {
   await firedb.collection("stats").doc("counter").get().then(async result => {
     await firedb.collection("stats").doc("counter").set({num: result.data().num + 1})
   })
@@ -149,10 +149,10 @@ app.get("/api/v2/deprecated", async (req, res) => {
   })
 })
 
-app.get("/api/v2", (req, res) => {
+app.get("/api/v3", (req, res) => {
   numCache = numCache + 1
   res.header("number", numCache);
-  if(req.headers.usertype != "bot"){ // why do res.json() when you could do res.render()
+  if(req.headers.usertype != "bot"){ // latency optimisation or something idk i thought it would be cool to add this feature
     res.render("number", {reply: numCache, imag: "https://tetr.io/res/bg/" + Math.floor(Math.random() * 36).toString()  + ".jpg"});
   }
   else {
@@ -165,12 +165,15 @@ app.get("/api/v2/fupdate", (req, res) => {
   res.json("force updated firebase.")
 })
 
-// heres my epic documenation I just wrote myself just now that I'll but in a sick new blog post or soemthign:
+// heres my epic documentation I just wrote myself just now that I'll but in a sick new blog post or soemthign:
 // v1 refers to the old version, which is remaining to be able to access the old data
 // v2 refers to a new version of the api which will return different data upon giving it the same
 // params..... hence v2!!!!
 // deprecated refers to the api being active and usable, but isnt the newest
-// and coolest and fastest version (with cache!!!!!)
+// and coolest and fastest version (cache!!!!!)
+// deprecated is now v2 because the new cache and firebase update system is incompatible
+// v3 is just the latest, v2 is partially functional but the data is overwritten after 5 minutes...
+// by the v3 api
 // set interval forces the server every now and again to update firestore
 // if the server crashes and burns or is forced to a halt, minimal data will be lost
 
