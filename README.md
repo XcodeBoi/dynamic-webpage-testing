@@ -48,7 +48,6 @@ todo:
 - prefetch pages javascript
 
 more detailed todo:
-- cache implentation for latency fix
 - websocket page. This may end up being on a different heroku enviroment.
 - backend firestore intergration with front end via websocket
 - discord bot intergration with firebase
@@ -56,6 +55,7 @@ more detailed todo:
 - google sheets api jazz
 
 done:
+- cache implentation for latency fix
 - lazygit alias cause writing "lazygit" sucks
 - windows zsh (powershell sucks) 
 - bad news: the windows compatability layer for linux is kinda ass for my use case.
