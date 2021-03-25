@@ -11,7 +11,6 @@ const splashApi = unsplash.createApi({accessKey: process.env.splash, fetch: node
 const redis = require("redis");
 const redisC = redis.createClient(process.env.REDIS_URL); // declared by the enviroment
 const fire = require('firebase-admin'); // alterative db testing
-const socketio = require('socket.io')
 
 fire.initializeApp({
   credential: fire.credential.cert({
@@ -207,6 +206,7 @@ app.get("/anilist", (req, res) => {
 
 app.get("/ejsTesting", (req, res) => res.render("blogtestingstuff"))
 
+app.get("/sockettest", (req, res) => res.render("sockettest"))
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
@@ -219,12 +219,6 @@ app.get("/ejsTesting", (req, res) => res.render("blogtestingstuff"))
 
 // well i have a local .env file that is on post 5000 now so the || operator doesnt actually do anything.
 
-ioServer = app.listen(process.env.PORT || 3000, () => {
-  console.log("server started on port 3000");
+app.listen(process.env.PORT || 3000, () => {
+  console.log("server started on port " + process.env.PORT.toString() || (3000).toString());
 });
-
-const io = socketio(ioServer)
-
-io.on('connection', socket => {
-    console.log("New user connected")
-})
