@@ -4,9 +4,12 @@
 	<title>awesome</title>
 </head>
 <body>
-	<p>yeah</p>
-	<button class="btn btn-warning" type="button" id="btn">yo</button>
-	<input type="text" class="form-control" id="username" placeholder="Change your username">
+	<div id="invalid"></div>
+	<input type="text" class="form-control" id="field" placeholder="Username">
+	<button class="btn btn-warning" type="button" id="btn">submit</button>
+	<div id="invalidM"></div>
+	<input type="text" class="form-control" id="message" placeholder="Message">
+	<button class="btn btn-warning" type="button" id="btnMessage">submit</button>
 	<script src="/socket.io/socket.io.js"></script>
 	<script src="/js/socketpage.js"></script>
 </body>

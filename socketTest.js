@@ -14,13 +14,16 @@ const server = app.listen(3000, () => {
 })
 const io = socketio(server)
 
-io.on('connection', socket => {
+io.on("connection", socket => {
     console.log("New user connected")
 
-    socket.username = "what"
+    socket.username = "anon"
 
-    socket.on('change_username', data => {
+    socket.on("change_username", data => {
         socket.username = data.username
-        console.log(socket.username + " " + data.username)
+    })
+
+    socket.on("send_message", data => {
+    	io.sockets.emit('receive_message', {message: data.message, username: socket.username})
     })
 })
