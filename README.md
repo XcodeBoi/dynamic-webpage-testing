@@ -43,6 +43,7 @@ todo:
 - blog
 - sitemap
 - markdown dynamic image thing
+- try making a basic electron app
 - electron app injection (into canary)
 - neko, anilist api
 - styling for number page
