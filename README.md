@@ -23,6 +23,9 @@ Why is this called the FAQ? Nobody has ever asked a single question about your r
 You know nobody who even visits this repo is gonna read the readme beyond the first line right?
 - ):
 
+Why is node modules commited?
+- Because I switch between two computers regularly, everything being installed when i pull is good.
+
 I used some guides. heres a couple i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
 - https://livecodestream.dev/post/a-starter-guide-to-building-real-time-applications-with-nodejs/
