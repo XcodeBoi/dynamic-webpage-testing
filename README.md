@@ -27,6 +27,7 @@ I used some guides. heres a couple i remembered to save:
 - https://levelup.gitconnected.com/render-dynamic-content-in-nodejs-using-templates-a58cae681148
 - https://livecodestream.dev/post/a-starter-guide-to-building-real-time-applications-with-nodejs/
 - https://youtu.be/3yqDxhR2XxE
+- https://medium.com/swlh/auto-scroll-in-javascript-283bdf76dc01
 
 heres a really awesome site that is really wondeful and has this really awesome and interesting article on it:
 - https://nee.lv/

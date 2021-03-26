@@ -25,7 +25,7 @@ document.querySelector('#btn').addEventListener('click', e => {
 				sepcial.parentNode.removeChild(sepcial);
 			}
 			catch {
-				3 + 2 // placeholder
+				// placeholder
 			}
 		}
 		username.value = ""
@@ -49,12 +49,21 @@ document.querySelector('#btnMessage').addEventListener('click', e => {
 			sepcial.parentNode.removeChild(sepcial);
 		}
 		catch {
-			3 + 2 // placeholder
+			// placeholder
 		}
 	}
 })
 
+var elem = document.getElementById('chat');
+elem.scrollTop = elem.scrollHeight;
+
 
 socket.on('receive_message', data => {
     console.log(data)
+    textmessage = document.createElement("li")
+    username = document.createElement("b")
+    username.appendChild(document.createTextNode(data.username + ": "))
+    textmessage.appendChild(username);
+    textmessage.appendChild(document.createTextNode(data.message))
+    document.getElementById("chat").appendChild(textmessage);
 })
