@@ -48,6 +48,7 @@ todo:
 - data set visualisation
 - anime.js
 - prefetch pages javascript
+- hardware monitoringm use https://systeminformation.io
 
 more detailed todo:
 - websocket page. This may end up being on a different heroku enviroment.
