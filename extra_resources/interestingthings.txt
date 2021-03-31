@@ -3,3 +3,11 @@ https://youtu.be/thqX845NEgg
 https://carbon.now.sh
 https://www.linuxjournal.com/article/2770
 steam, loop, noble gas, murcuray
+
+https://github.com/bvaughn/react-virtualized
+https://github.com/uber/react-vis
+https://echarts.apache.org/examples/en/index.html
+https://github.com/DmitryBaranovskiy/raphael
+https://bl.ocks.org/mbostock/4341417
+
+https://css-tricks.com/snippets/css/complete-guide-grid/
