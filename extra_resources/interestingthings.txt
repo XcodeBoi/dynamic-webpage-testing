@@ -15,3 +15,5 @@ https://css-tricks.com/snippets/css/complete-guide-grid/
 open box video
 
 http://npm.anvaka.com/#/view/2d/express.js
+
+https://www.rodsbooks.com/efi-bootloaders/principles.html
