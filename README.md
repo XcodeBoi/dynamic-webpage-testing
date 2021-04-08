@@ -1,4 +1,10 @@
 
+
+# This is temporily dead and totally unavalible while I test another app. 
+
+API end points are dysfunctional during this period. I will fix the intergration at a later date.
+Check the second branch for my work on websockets.
+
 my cool webapp yeah its mostly just a test project.
 
 [![CodeFactor](https://www.codefactor.io/repository/github/xcodeboi/dynamic-webpage-testing/badge)](https://www.codefactor.io/repository/github/xcodeboi/dynamic-webpage-testing)
