@@ -206,6 +206,7 @@ app.get("/anilist", (req, res) => {
 
 app.get("/ejsTesting", (req, res) => res.render("blogtestingstuff"))
 
+app.get("/sockettest", (req, res) => res.render("sockettest"))
 
 // app refers to the instance of expressjs, listen tells it what port to start running on.
 // due to the heroku enviroment, I use process.env.PORT. heroku sets the port.
@@ -219,5 +220,5 @@ app.get("/ejsTesting", (req, res) => res.render("blogtestingstuff"))
 // well i have a local .env file that is on post 5000 now so the || operator doesnt actually do anything.
 
 app.listen(process.env.PORT || 3000, () => {
-  console.log("server started on port 3000");
+  console.log("server started on port " + process.env.PORT.toString() || (3000).toString());
 });

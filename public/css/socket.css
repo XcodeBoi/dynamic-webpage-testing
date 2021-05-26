@@ -1,0 +1,20 @@
+body {
+	margin: 10px 30%;
+}
+.buttons {
+	float: left;
+}
+#chat {
+	float: right;
+}
+li {
+	overflow: scroll;
+	text-align: justify;
+	list-style: none;
+}
+ul {
+	height: 70%;
+	overflow-y: auto;
+	max-width: 320px;
+	max-height: 70vh;
+}
